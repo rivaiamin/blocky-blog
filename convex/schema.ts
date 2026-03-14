@@ -27,6 +27,24 @@ const applicationTables = {
     .index("by_author", ["authorId"])
     .index("by_slug", ["slug"])
     .index("by_published", ["published"]),
+
+  siteSettings: defineTable({
+    key: v.literal("default"),
+    webName: v.string(),
+    hero: v.object({
+      title: v.string(),
+      description: v.string(),
+      imageUrl: v.optional(v.string()),
+      ctaLabel: v.optional(v.string()),
+      ctaHref: v.optional(v.string()),
+    }),
+    background: v.string(),
+    fontFamily: v.string(),
+    colorScheme: v.object({
+      primary: v.string(),
+      secondary: v.string(),
+    }),
+  }).index("by_key", ["key"]),
 };
 
 export default defineSchema({

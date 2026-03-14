@@ -3,6 +3,52 @@
 :root {
   --color-light: #ffffff;
   --color-dark: #171717;
+  --color-primary: #2563eb;
+  --color-secondary: #64748b;
+  /* Anime/game theme: soft gradient and shadows */
+  --gradient-hero: linear-gradient(135deg, #f5f3ff 0%, #ede9fe 25%, #fafafa 60%, #ffffff 100%);
+  --shadow-card: 0 4px 20px -2px rgb(0 0 0 / 0.06), 0 2px 8px -2px rgb(0 0 0 / 0.04);
+  --shadow-card-hover: 0 12px 32px -4px rgb(0 0 0 / 0.08), 0 4px 12px -2px rgb(0 0 0 / 0.04);
+  --radius-card: 1rem;
+  --radius-button: 0.75rem;
+}
+
+/* Theme utilities – use so primary/secondary respect site settings */
+.theme-text-primary {
+  color: var(--color-primary);
+}
+.theme-text-secondary {
+  color: var(--color-secondary);
+}
+.theme-bg-primary {
+  background-color: var(--color-primary);
+}
+.theme-bg-secondary {
+  background-color: var(--color-secondary);
+}
+.theme-border-primary {
+  border-color: var(--color-primary);
+}
+
+/* Anime/game theme: card and surfaces */
+.theme-card {
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  transition: box-shadow 0.2s ease;
+}
+.theme-card:hover {
+  box-shadow: var(--shadow-card-hover);
+}
+.theme-btn {
+  border-radius: var(--radius-button);
+  font-weight: 600;
+  transition: opacity 0.2s ease, transform 0.15s ease;
+}
+.theme-btn:hover {
+  opacity: 0.92;
+}
+.theme-btn:active {
+  transform: scale(0.98);
 }
 
 .accent-text {

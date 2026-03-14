@@ -17,7 +17,7 @@ export function PostView({ postId, slug, setCurrentView }: PostViewProps) {
   if (post === undefined) {
     return (
       <div className="flex justify-center py-20">
-        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600"></div>
+        <div className="animate-spin rounded-full h-8 w-8 border-2 border-slate-200 border-t-slate-600" />
       </div>
     );
   }
@@ -25,10 +25,10 @@ export function PostView({ postId, slug, setCurrentView }: PostViewProps) {
   if (!post) {
     return (
       <div className="text-center py-20">
-        <h2 className="text-2xl font-bold text-gray-900 mb-4">Post not found</h2>
+        <h2 className="text-2xl font-bold text-slate-900 mb-4">Post not found</h2>
         <button
-          onClick={() => setCurrentView({ type: 'home' })}
-          className="text-blue-600 hover:text-blue-700"
+          onClick={() => setCurrentView({ type: "home" })}
+          className="theme-text-primary font-medium hover:opacity-80"
         >
           ← Back to home
         </button>
@@ -39,19 +39,19 @@ export function PostView({ postId, slug, setCurrentView }: PostViewProps) {
   return (
     <div className="max-w-3xl mx-auto">
       <button
-        onClick={() => setCurrentView({ type: 'home' })}
-        className="text-gray-600 hover:text-gray-900 transition-colors mb-8"
+        onClick={() => setCurrentView({ type: "home" })}
+        className="theme-text-primary font-medium hover:opacity-80 transition-opacity mb-8 inline-flex items-center gap-1"
       >
         ← Back to blog
       </button>
 
-      <article className="bg-white rounded-xl shadow-sm border border-gray-200 p-8">
+      <article className="theme-card bg-white/90 backdrop-blur-sm border border-slate-200/80 p-8 lg:p-10">
         <header className="mb-8">
-          <h1 className="text-4xl font-bold text-gray-900 mb-4">{post.title}</h1>
+          <h1 className="text-4xl font-bold theme-text-primary mb-4">{post.title}</h1>
           {post.excerpt && (
-            <p className="text-xl text-gray-600 mb-4">{post.excerpt}</p>
+            <p className="text-xl text-slate-600 mb-4">{post.excerpt}</p>
           )}
-          <div className="text-sm text-gray-500">
+          <div className="text-sm theme-text-secondary">
             Published on {new Date(post._creationTime).toLocaleDateString()}
           </div>
         </header>
@@ -92,17 +92,17 @@ function BlockDisplay({ block }: { block: any }) {
 
     case 'paragraph':
       return (
-        <p className="mb-4 leading-relaxed text-gray-900">
+        <p className="mb-4 leading-relaxed text-slate-800">
           {block.content.text}
         </p>
       );
 
     case 'quote':
       return (
-        <blockquote className="border-l-4 border-gray-300 pl-6 my-6 italic text-lg text-gray-700">
+        <blockquote className="border-l-4 border-slate-300 pl-6 my-6 italic text-lg text-slate-700" style={{ borderColor: 'var(--color-primary)' }}>
           <p className="mb-2">{block.content.text}</p>
           {block.content.author && (
-            <cite className="text-sm text-gray-500 not-italic">
+            <cite className="text-sm text-slate-500 not-italic">
               — {block.content.author}
             </cite>
           )}
@@ -114,7 +114,7 @@ function BlockDisplay({ block }: { block: any }) {
       return (
         <ListTag className={`mb-4 ${block.content.ordered ? 'list-decimal' : 'list-disc'} list-inside space-y-1`}>
           {(block.content.items || []).map((item: string, index: number) => (
-            <li key={index} className="text-gray-900">{item}</li>
+            <li key={index} className="text-slate-800">{item}</li>
           ))}
         </ListTag>
       );
@@ -123,7 +123,7 @@ function BlockDisplay({ block }: { block: any }) {
       return (
         <figure className="my-8">
           {block.content.url && (
-            <div className="rounded-lg overflow-hidden border border-gray-200 bg-gray-50">
+            <div className="rounded-xl overflow-hidden border border-slate-200/80 bg-slate-50/80 shadow-sm">
               <img
                 src={block.content.url}
                 alt={block.content.title || block.content.caption || 'Image'}
@@ -134,10 +134,10 @@ function BlockDisplay({ block }: { block: any }) {
           {(block.content.title || block.content.caption) && (
             <figcaption className="mt-3 space-y-1">
               {block.content.title && (
-                <div className="font-semibold text-gray-900">{block.content.title}</div>
+                <div className="font-semibold text-slate-900">{block.content.title}</div>
               )}
               {block.content.caption && (
-                <div className="text-sm text-gray-500">{block.content.caption}</div>
+                <div className="text-sm text-slate-500">{block.content.caption}</div>
               )}
             </figcaption>
           )}
@@ -147,7 +147,7 @@ function BlockDisplay({ block }: { block: any }) {
     case 'divider':
       return (
         <div className="my-8 flex justify-center">
-          <div className="w-24 h-px bg-gray-300"></div>
+          <div className="w-24 h-px bg-slate-300" />
         </div>
       );
 

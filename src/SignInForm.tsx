@@ -9,8 +9,8 @@ export function SignInForm() {
   const [submitting, setSubmitting] = useState(false);
 
   return (
-    <div className="min-h-screen w-full bg-slate-50 px-4 flex items-center justify-center">
-      <div className="w-full max-w-sm rounded-2xl bg-white/95 shadow-md border border-slate-200 px-6 py-7 space-y-5">
+    <div className="min-h-screen w-full px-4 flex items-center justify-center bg-gradient-to-br from-slate-50 via-violet-50/30 to-slate-50">
+      <div className="theme-card w-full max-w-sm bg-white/95 backdrop-blur-sm border border-slate-200/80 px-6 py-7 space-y-5">
         <div className="text-center space-y-1.5">
           <h1 className="text-xl font-semibold tracking-tight">
             {flow === "signIn" ? "Welcome back" : "Create your account"}
