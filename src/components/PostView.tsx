@@ -1,6 +1,8 @@
 import { useQuery } from "convex/react";
 import { api } from "../../convex/_generated/api";
 import { Id } from "../../convex/_generated/dataModel";
+import { splitBlocksIntoSlides } from "../lib/slides";
+import { PostStoriesView } from "./PostStoriesView";
 
 interface PostViewProps {
   postId?: Id<"posts">;
@@ -36,6 +38,9 @@ export function PostView({ postId, slug, setCurrentView }: PostViewProps) {
     );
   }
 
+  const slides = splitBlocksIntoSlides(post.blocks);
+  const isStories = slides.length > 1;
+
   return (
     <div className="max-w-3xl mx-auto">
       <button
@@ -45,23 +50,25 @@ export function PostView({ postId, slug, setCurrentView }: PostViewProps) {
         ← Back to blog
       </button>
 
-      <article className="theme-card bg-white/90 backdrop-blur-sm border border-slate-200/80 p-8 lg:p-10">
-        <header className="mb-8">
-          <h1 className="text-4xl font-bold theme-text-primary mb-4">{post.title}</h1>
-          {post.excerpt && (
-            <p className="text-xl text-slate-600 mb-4">{post.excerpt}</p>
-          )}
-          <div className="text-sm theme-text-secondary">
-            Published on {new Date(post._creationTime).toLocaleDateString()}
-          </div>
-        </header>
+      {isStories ? (
+        <PostStoriesView post={post} onExit={() => setCurrentView({ type: "home" })} />
+      ) : (
+        <article className="theme-card bg-white/90 backdrop-blur-sm border border-slate-200/80 p-8 lg:p-10">
+          <header className="mb-8">
+            <h1 className="text-4xl font-bold theme-text-primary mb-4">{post.title}</h1>
+            {post.excerpt && <p className="text-xl text-slate-600 mb-4">{post.excerpt}</p>}
+            <div className="text-sm theme-text-secondary">
+              Published on {new Date(post._creationTime).toLocaleDateString()}
+            </div>
+          </header>
 
-        <div className="prose prose-lg max-w-none">
-          {post.blocks?.map((block: any) => (
-            <BlockDisplay key={block.id} block={block} />
-          ))}
-        </div>
-      </article>
+          <div className="prose prose-lg max-w-none">
+            {post.blocks?.map((block: any) => (
+              <BlockDisplay key={block.id} block={block} />
+            ))}
+          </div>
+        </article>
+      )}
     </div>
   );
 }
@@ -127,7 +134,7 @@ function BlockDisplay({ block }: { block: any }) {
               <img
                 src={block.content.url}
                 alt={block.content.title || block.content.caption || 'Image'}
-                className="w-full max-h-[28rem] object-contain"
+                className="w-full max-h-112 object-contain"
               />
             </div>
           )}
